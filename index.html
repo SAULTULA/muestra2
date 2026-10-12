@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="La Radio del Rincon 98.7 FM — Radio ficticia de barrio. Muestra HTML/CSS/JS para emision en vivo con panel de administracion."
+    />
+    <title>La Radio del Rincon 98.7 FM — Web de muestra</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="nav">
+        <a href="#inicio" class="nav__logo">
+          <img src="assets/logo.svg" alt="Logo de la radio" class="logo-img" id="logo-img" />
+          <div class="nav__brand">
+            <span class="nombre-radio" id="nombre-radio">LA RADIO DEL RINCON</span>
+            <span class="lema-radio" id="lema-radio">La radio de casa, con cariño</span>
+          </div>
+          <span class="frecuencia" id="frecuencia-radio">98.7 FM</span>
+        </a>
+        <div class="nav__links">
+          <a href="#inicio" class="nav__link">Inicio</a>
+          <a href="#programacion" class="nav__link">Programación</a>
+          <a href="#noticias" class="nav__link">Novedades</a>
+          <a href="#nosotros" class="nav__link">Nosotros</a>
+          <a href="#contacto" class="nav__link">Contacto</a>
+          <button class="btn" id="btn-admin" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2a4 4 0 0 0-4 4v1H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1V6a4 4 0 0 0-4-4Zm0 2a2 2 0 0 1 2 2v1h-4V6a2 2 0 0 1 2-2Zm0 8a2 2 0 0 1 1 3.73V17h-2v-1.27A2 2 0 0 1 12 12Z" />
+            </svg>
+            ADMIN
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio" class="hero">
+        <div class="container">
+          <div class="hero__grid">
+            <div class="card">
+              <div class="card__body">
+                <div class="reproductor">
+                  <div class="estado-bar">
+                    <div class="badge-live" id="badge-live">
+                      <span class="led-live"></span>
+                      <span>En directo</span>
+                    </div>
+                    <div class="estado-stream" id="estado-stream">Sin directo</div>
+                  </div>
+
+                  <div class="player-wrap player--sin-stream" id="player-wrap" data-motivo="vacio">
+                    <div id="youtube-player" class="player"></div>
+                    <div class="player-vacio">
+                      <div class="player-vacio__icono" aria-hidden="true">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M4 10h2v4H4v-4Zm4-3h2v10H8V7Zm4-2h2v14h-2V5Zm4 3h2v10h-2V8Zm4 3h2v4h-2v-4Z" opacity="0.5" />
+                          <path d="M12 2a9 9 0 0 0-9 9h2a7 7 0 0 1 14 0h2a9 9 0 0 0-9-9Z" opacity="0.75" />
+                        </svg>
+                      </div>
+                      <p class="player-vacio__titulo" id="player-vacio-titulo">
+                        Ahora mismo no suena nada
+                      </p>
+                      <p class="player-vacio__texto" id="player-vacio-texto">
+                        Todavía no hay ningún directo configurado. Entra al panel y pon la
+                        dirección de tu emisión en vivo.
+                      </p>
+                      <button class="btn" type="button" id="player-vacio-boton">Abrir el panel</button>
+                    </div>
+                  </div>
+
+                  <div class="info-vivo">
+                    <h1 class="titulo-vivo" id="titulo-vivo">A la hora de la merienda</h1>
+                    <p class="presentador-vivo" id="presentador-vivo">Marisol</p>
+                  </div>
+
+                  <div class="controles">
+                    <button class="btn btn--ghost" id="btn-vol-down" type="button" title="Bajar volumen">
+                      − Volumen
+                    </button>
+                    <button class="btn btn--ghost" id="btn-vol-up" type="button" title="Subir volumen">
+                      + Volumen
+                    </button>
+                    <button class="btn btn--ghost" id="btn-mute" type="button" title="Silenciar">
+                      Silenciar
+                    </button>
+                    <button class="btn btn--ghost" id="btn-unmute" type="button" title="Activar sonido">
+                      Escuchar
+                    </button>
+                    <button class="btn btn--ghost" id="btn-youtube" type="button" title="Ver en YouTube">
+                      Abrir en YouTube
+                    </button>
+                    <div class="ecualizador" aria-hidden="true">
+                      <span class="barra"></span>
+                      <span class="barra"></span>
+                      <span class="barra"></span>
+                      <span class="barra"></span>
+                      <span class="barra"></span>
+                      <span class="barra"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__body">
+                <h2 class="seccion__titulo">Bienvenido al rincón</h2>
+                <p class="seccion__subtitulo" style="margin-top: 0">
+                  Esta es una web de muestra para una radio de barrio. Tiene todo lo
+                  necesario para emitir en directo desde el panel de administración.
+                </p>
+                <div class="card-ayuda">
+                  <span class="tag">Para empezar</span>
+                  <h3>Cómo poner tu directo</h3>
+                  <p>
+                    Pulsa <strong>ADMIN</strong> arriba a la derecha, entra con
+                    <strong>admin</strong> y <strong>1234</strong>, ve a la pestaña
+                    <strong>Directo</strong>, pega la dirección de tu emisión de YouTube y
+                    dale a <strong>Probar</strong>. Cuando te guste, guarda los cambios.
+                  </p>
+                </div>
+                <div class="card-ayuda">
+                  <span class="tag">Tenlo en cuenta</span>
+                  <h3>Sobre los directos de YouTube</h3>
+                  <p>
+                    Muchos canales de YouTube no permiten que su vídeo se reproduzca
+                    dentro de otras webs. Si es tu caso, aquí aparecerá un aviso amable y
+                    podrás abrir el directo directamente en YouTube.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="ticker">
+        <div class="ticker__contenido">
+          <span>La Radio del Rincon 98.7 FM · Musiquita para cocinar y compañía</span>
+          <span>·</span>
+          <span>Web de muestra hecha con HTML, CSS y JavaScript</span>
+          <span>·</span>
+          <span>El directo se coloca desde el panel de administración</span>
+          <span>·</span>
+          <span>Se guarda en tu navegador, no en un servidor</span>
+          <span>·</span>
+          <span>La Radio del Rincon 98.7 FM · Musiquita para cocinar y compañía</span>
+          <span>·</span>
+          <span>Web de muestra hecha con HTML, CSS y JavaScript</span>
+          <span>·</span>
+          <span>El directo se coloca desde el panel de administración</span>
+          <span>·</span>
+          <span>Se guarda en tu navegador, no en un servidor</span>
+        </div>
+      </div>
+
+      <section id="programacion">
+        <div class="container">
+          <h2 class="seccion__titulo">Programación de la semana</h2>
+          <p class="seccion__subtitulo">
+            Los horarios de siempre, de madrugada a medianoche. Puedes cambiarlos todos
+            desde el panel.
+          </p>
+          <div class="card">
+            <div class="card__body">
+              <div style="overflow: auto">
+                <table class="tabla">
+                  <thead>
+                    <tr>
+                      <th>Día</th>
+                      <th>Hora</th>
+                      <th>Programa</th>
+                      <th>Quién lo hace</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody-programacion"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="noticias">
+        <div class="container">
+          <h2 class="seccion__titulo">Novedades de la radio</h2>
+          <p class="seccion__subtitulo">
+            Lo último del barrio (contenido inventado para la muestra, editable desde el
+            panel).
+          </p>
+          <div class="grid-noticias" id="grid-noticias"></div>
+        </div>
+      </section>
+
+      <section id="nosotros">
+        <div class="container">
+          <h2 class="seccion__titulo">Quiénes somos</h2>
+          <div class="nosotros">
+            <div class="card">
+              <div class="card__body">
+                <h3 class="titulo-vivo" id="nosotros-titular">
+                  Una radio pequeña hecha entre todos
+                </h3>
+                <p id="nosotros-texto"></p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card__body">
+                <div class="stats" id="nosotros-stats"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto">
+        <div class="container">
+          <h2 class="seccion__titulo">Escríbenos</h2>
+          <p class="seccion__subtitulo">
+            ¿Quieres saludarnos en antena o contarnos algo? Aquí tienes cómo
+            localizarnos.
+          </p>
+          <div class="contacto-grid">
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">WhatsApp</span>
+              <span class="dato-valor">
+                <a id="link-whatsapp" target="_blank" rel="noopener noreferrer">
+                  <span id="contacto-whatsapp"></span>
+                </a>
+              </span>
+            </div>
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">Teléfono</span>
+              <span class="dato-valor">
+                <a id="link-telefono"><span id="contacto-telefono"></span></a>
+              </span>
+            </div>
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">Correo</span>
+              <span class="dato-valor">
+                <a id="link-email"><span id="contacto-email"></span></a>
+              </span>
+            </div>
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">Dirección</span>
+              <span class="dato-valor" id="contacto-direccion"></span>
+            </div>
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">Instagram</span>
+              <span class="dato-valor">
+                <a id="link-instagram" target="_blank" rel="noopener noreferrer">
+                  <span id="contacto-instagram"></span>
+                </a>
+              </span>
+            </div>
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">Facebook</span>
+              <span class="dato-valor">
+                <a id="link-facebook" target="_blank" rel="noopener noreferrer">
+                  <span id="contacto-facebook"></span>
+                </a>
+              </span>
+            </div>
+            <div class="dato-contacto">
+              <span class="dato-etiqueta">YouTube</span>
+              <span class="dato-valor">
+                <a id="link-youtube" target="_blank" rel="noopener noreferrer">
+                  <span id="contacto-youtube"></span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__contenido">
+        <p><strong>La Radio del Rincon 98.7 FM</strong> — Web de muestra.</p>
+        <p>
+          Esta radio es inventada y la web está hecha para enseñar cómo funciona un panel
+          de emisión. Lo que guardas en el panel se queda en
+          <strong>tu navegador</strong>: no va a ningún servidor.
+        </p>
+        <p>© 2026 La Radio del Rincón. Hecha con cariño.</p>
+      </div>
+    </footer>
+
+    <!-- Modal Login -->
+    <div class="modal" id="modal-login">
+      <div class="modal__contenido" style="max-width: 420px">
+        <div class="modal__header">
+          <h3 class="modal__titulo">Entrar al panel</h3>
+          <button class="btn btn--ghost btn--small" id="btn-cerrar-login" type="button">Cerrar</button>
+        </div>
+        <div class="modal__cuerpo">
+          <form id="form-login">
+            <div class="form-grid">
+              <div class="campo">
+                <label for="input-usuario">Usuario</label>
+                <input type="text" id="input-usuario" placeholder="admin" autocomplete="username" required />
+              </div>
+              <div class="campo">
+                <label for="input-clave">Contraseña</label>
+                <input type="password" id="input-clave" placeholder="••••" autocomplete="current-password" required />
+              </div>
+            </div>
+            <div class="error-login" id="error-login"></div>
+            <button class="btn btn--block" type="submit">Entrar</button>
+          </form>
+          <div class="aviso-demo">
+            <strong>Web de muestra:</strong> usuario <code>admin</code> y contraseña
+            <code>1234</code>. Estas claves se ven en el código de la página, así que no
+            las uses en nada de verdad.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Panel Admin -->
+    <div class="modal" id="modal-panel">
+      <div class="modal__contenido">
+        <div class="modal__header">
+          <h3 class="modal__titulo">Panel de administración</h3>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap">
+            <button class="btn btn--ghost btn--small" id="btn-logout" type="button">Salir</button>
+            <button class="btn btn--ghost btn--small" id="btn-cerrar-panel" type="button">Cerrar</button>
+          </div>
+        </div>
+        <div class="modal__cuerpo">
+          <div class="aviso-demo" id="aviso-demo">Estás viendo la configuración de fábrica</div>
+
+          <div class="tabs">
+            <button class="tab activo" data-tab="identidad">Identidad</button>
+            <button class="tab" data-tab="directo">Directo</button>
+            <button class="tab" data-tab="programacion">Programación</button>
+            <button class="tab" data-tab="noticias">Novedades</button>
+            <button class="tab" data-tab="contactos">Contacto</button>
+          </div>
+
+          <div class="tab-content activo" id="tab-identidad">
+            <div class="form-grid">
+              <div class="campo">
+                <label for="nombre">Nombre de la radio</label>
+                <input type="text" id="nombre" />
+              </div>
+              <div class="campo">
+                <label for="frecuencia">Frecuencia</label>
+                <input type="text" id="frecuencia" placeholder="98.7" />
+              </div>
+              <div class="campo" style="grid-column: 1/-1">
+                <label for="lema">Lema</label>
+                <input type="text" id="lema" />
+              </div>
+              <div class="campo">
+                <label for="colorAcento">Color principal</label>
+                <input type="color" id="colorAcento" />
+              </div>
+              <div class="campo">
+                <label for="colorSecundario">Color secundario</label>
+                <input type="color" id="colorSecundario" />
+              </div>
+              <div class="campo" style="grid-column: 1/-1">
+                <div class="color-prev" id="color-prev"></div>
+              </div>
+              <div class="campo" style="grid-column: 1/-1">
+                <label for="logo">Dirección del logo</label>
+                <input type="text" id="logo" placeholder="assets/logo.svg" />
+                <small>
+                  Usa una ruta relativa (assets/logo.svg). Es lo que mejor funciona en
+                  GitHub Pages.
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-directo">
+            <div class="form-grid">
+              <div class="campo" style="grid-column: 1/-1">
+                <label for="youtubeUrl">Dirección del directo de YouTube</label>
+                <input
+                  type="url"
+                  id="youtubeUrl"
+                  placeholder="https://www.youtube.com/watch?v=... o https://youtu.be/..."
+                />
+                <small>
+                  Si el canal no deja insertar el vídeo, te lo diremos y podrás abrirlo en
+                  YouTube.
+                </small>
+              </div>
+              <div class="campo">
+                <label for="tituloVivo">Nombre del programa en directo</label>
+                <input type="text" id="tituloVivo" placeholder="A la hora de la merienda" />
+              </div>
+              <div class="campo">
+                <label for="presentadorVivo">Quién lo presenta</label>
+                <input type="text" id="presentadorVivo" placeholder="Marisol" />
+              </div>
+            </div>
+            <div class="acciones" style="border-top: 0; padding-top: 0">
+              <button class="btn btn--ghost" id="btn-probar" type="button">Probar el directo</button>
+              <small>
+                La prueba se ve aquí mismo. Para que se quede, no olvides pulsar Guardar.
+              </small>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-programacion">
+            <div style="overflow: auto">
+              <table class="tabla-admin">
+                <thead>
+                  <tr>
+                    <th>Día</th>
+                    <th>Hora</th>
+                    <th>Programa</th>
+                    <th>Quién lo hace</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-prog"></tbody>
+              </table>
+            </div>
+            <button class="btn btn--ghost" id="btn-add-prog" type="button">+ Añadir programa</button>
+          </div>
+
+          <div class="tab-content" id="tab-noticias">
+            <div style="overflow: auto">
+              <table class="tabla-admin">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Etiqueta</th>
+                    <th>Titular</th>
+                    <th>Texto</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-noticias"></tbody>
+              </table>
+            </div>
+            <button class="btn btn--ghost" id="btn-add-noticia" type="button">+ Añadir novedad</button>
+          </div>
+
+          <div class="tab-content" id="tab-contactos">
+            <div class="form-grid">
+              <div class="campo">
+                <label for="whatsapp">WhatsApp (solo números, con prefijo)</label>
+                <input type="text" id="whatsapp" placeholder="34600123456" />
+              </div>
+              <div class="campo">
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" placeholder="900 55 44 33" />
+              </div>
+              <div class="campo" style="grid-column: 1/-1">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" placeholder="hola@radiorincon.demo" />
+              </div>
+              <div class="campo" style="grid-column: 1/-1">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" placeholder="Calle del Home 12, 28004 Madrid" />
+              </div>
+              <div class="campo">
+                <label for="instagram">Instagram (sin @)</label>
+                <input type="text" id="instagram" placeholder="radiorincon" />
+              </div>
+              <div class="campo">
+                <label for="facebook">Facebook (página o usuario)</label>
+                <input type="text" id="facebook" placeholder="radiorincon" />
+              </div>
+              <div class="campo">
+                <label for="youtube">YouTube (@canal)</label>
+                <input type="text" id="youtube" placeholder="@radiorincon" />
+              </div>
+            </div>
+          </div>
+
+          <div class="acciones">
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
+              <button class="btn" id="btn-guardar" type="button">Guardar cambios</button>
+              <button class="btn btn--ghost" id="btn-restablecer" type="button">Volver a los valores de fábrica</button>
+            </div>
+            <small>
+              Se guarda en el <strong>localStorage</strong> de este navegador. No cambia
+              nada en tu repositorio de GitHub ni en lo que ven los demás visitantes.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/datos.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/sitio.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.RADIO_SITIO && typeof window.RADIO_SITIO.aplicar === 'function') {
+          window.RADIO_SITIO.aplicar();
+        }
+        var btnVolUp = document.getElementById('btn-vol-up');
+        var btnVolDown = document.getElementById('btn-vol-down');
+        var btnMute = document.getElementById('btn-mute');
+        var btnUnmute = document.getElementById('btn-unmute');
+        var btnYt = document.getElementById('btn-youtube');
+        var btnVacio = document.getElementById('player-vacio-boton');
+        var btnAdmin = document.getElementById('btn-admin');
+        if (btnVolUp && window.RADIO_PLAYER) btnVolUp.addEventListener('click', window.RADIO_PLAYER.subirVolumen);
+        if (btnVolDown && window.RADIO_PLAYER) btnVolDown.addEventListener('click', window.RADIO_PLAYER.bajarVolumen);
+        if (btnMute && window.RADIO_PLAYER) btnMute.addEventListener('click', window.RADIO_PLAYER.mutear);
+        if (btnUnmute && window.RADIO_PLAYER) btnUnmute.addEventListener('click', window.RADIO_PLAYER.activar);
+        if (btnYt && window.RADIO_PLAYER) btnYt.addEventListener('click', window.RADIO_PLAYER.abrirEnYoutube);
+        if (btnVacio) {
+          btnVacio.addEventListener('click', function () {
+            if (btnVacio.dataset.accion === 'youtube') {
+              if (window.RADIO_PLAYER) window.RADIO_PLAYER.abrirEnYoutube();
+            } else if (btnAdmin) {
+              btnAdmin.click();
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
